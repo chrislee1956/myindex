@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+  <canvas width="500" height="500" style="border: solid green;"></canvas>
+  <script>
+      var can=document.querySelector("canvas");
+      var vas=can.getContext("2d");
+      function clock(){
+          var date=new Date();
+          var hour=date.getHours();
+          var min=date.getMinutes();
+          var sec=date.getSeconds();
+        /*  hour=hour>12?hour-12:hour;*/
+          if(hour>12){
+              hour=hour-12;
+          }
+          hour+=(min/60);
+           /*清除画布*/
+          vas.clearRect(0,0,500,500);
+         /* 化缘*/
+          vas.strokeStyle="#00ffff";
+          vas.lineWidth=7;
+          vas.beginPath();
+          vas.arc(250,250,200,0,2*Math.PI);
+          vas.stroke();
+          vas.closePath();
+          vas.clip();
+          /*加背景图像*/
+          var img=new Image();
+          img.src="1491606913779.png";
+          vas.drawImage(img,-150,0,700,500);
+          /*小时刻度*/
+          vas.save();
+          vas.translate(250,250);
+          for(var i=0;i<12;i++){
+              vas.rotate(30*Math.PI/180);
+              vas.beginPath();
+              vas.moveTo(0,-198);
+              vas.lineTo(0,-180);
+              vas.strokeStyle="#ffff00";
+              vas.lineWidth=7;
+              vas.stroke();
+              vas.closePath();
+          }
+          vas.restore();
+        /*  分钟刻度*/
+          vas.save();
+          vas.translate(250,250);
+          for(var i=0;i<60;i++){
+              vas.rotate(6*Math.PI/180);
+              vas.beginPath();
+              vas.moveTo(0,-198);
+              vas.lineTo(0,-189);
+              vas.strokeStyle="#ffff00";
+              vas.lineWidth=4;
+              vas.stroke();
+              vas.closePath();
+          }
+          vas.restore();
+         /* 时针*/
+          vas.save();
+          vas.translate(250,250);
+          vas.rotate(hour*30*Math.PI/180);
+          vas.beginPath();
+          vas.moveTo(0,-100);
+          vas.lineTo(0,10);
+          vas.strokeStyle="#00ffff";
+          vas.lineWidth=7;
+          vas.stroke();
+          vas.closePath();
+          vas.restore();
+
+          /* 分针*/
+          vas.save();
+          vas.translate(250,250);
+
+          vas.rotate(min*6*Math.PI/180);
+          vas.beginPath();
+          vas.moveTo(0,-120);
+          vas.lineTo(0,10);
+          vas.strokeStyle="#ffff00";
+          vas.lineWidth=5;
+          vas.stroke();
+          vas.closePath();
+          vas.restore();
+
+          /* 秒针*/
+          vas.save();
+          vas.translate(250,250);
+          vas.rotate(sec*6*Math.PI/180);
+          vas.beginPath();
+          vas.moveTo(0,-150);
+          vas.lineTo(0,10);
+          vas.strokeStyle="red";
+          vas.lineWidth=2;
+          vas.stroke();
+          vas.closePath();
+          vas.beginPath();
+          vas.arc(0,0,7,0,2*Math.PI);
+          vas.fillStyle="yellow";
+          vas.strokeStyle="red";
+          vas.lineWidth=2;
+          vas.fill();
+          vas.stroke();
+          vas.closePath();
+          vas.beginPath();
+          vas.arc(0,-120,5,0,2*Math.PI);
+          vas.fillStyle="yellow";
+          vas.strokeStyle="red";
+          vas.lineWidth=2;
+          vas.fill();
+          vas.stroke();
+          vas.closePath();
+          vas.restore();
+
+          vas.fillStyle="green";
+          vas.font="normal bold 20px "
+          vas.fillText("中国美女甲天下",230,400);
+      }
+      clock();
+      setInterval(clock,1000);
+  </script>
+</body>
+</html>
